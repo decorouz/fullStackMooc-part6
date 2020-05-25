@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import reducer from './reducer'
@@ -6,21 +6,24 @@ import reducer from './reducer'
 const store = createStore(reducer)
 
 const App = () => {
-  const good = () => {
-    store.dispatch({
-      type: 'GOOD'
-    })
-  }
+  const dispatch = (type) => store.dispatch({ type })
+
+  const good = () => dispatch('GOOD')
+  const neutral = () => dispatch('OK')
+  const bad = () => dispatch('BAD')
+  const reset = () => dispatch('ZERO')
 
   return (
     <div>
-      <button onClick={good}>good</button> 
-      <button>neutral</button> 
-      <button>bad</button>
-      <button>reset stats</button>
+      <h5>Feedbacks</h5>
+
+      <button onClick={good}>good</button>
+      <button onClick={neutral}>neutral</button>
+      <button onClick={bad}>bad</button>
+      <button onClick={reset}>reset stats</button>
       <div>good {store.getState().good}</div>
-      <div>neutral</div>
-      <div>bad</div>
+      <div>neutral {store.getState().ok}</div>
+      <div>bad {store.getState().bad}</div>
     </div>
   )
 }
