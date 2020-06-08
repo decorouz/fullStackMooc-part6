@@ -1,20 +1,60 @@
-const notificationReducer = (state = 'initial notification', action) => {
+const notificationReducer = (state = '', action) => {
   switch (action.type) {
-    case 'SET_NOTIFICATION':
-      return action.notification
+    case 'NEW_CREATED':
+      return action.data
+    case 'VOTED':
+      return action.data
+    case 'HIDE':
+      return ''
 
     default:
       return state
   }
 }
 
-// Action creator for the new functionality
-
-export const setNotification = (notification) => {
+const createNotification = (id, content) => {
   return {
-    type: 'SET_NOTIFICATION',
-    notification,
+    type: 'NEW_CREATED',
+    id,
+    data: `You created '${content}'`,
   }
+}
+
+const voteNotification = (id, content) => {
+  return {
+    type: 'VOTED',
+    id,
+    data: `You voted '${content}'`,
+  }
+}
+
+const hideNotification = (id) => {
+  return {
+    type: 'HIDE',
+    id,
+  }
+}
+
+let nextNotificationId = 0
+
+export const setCreateNotification = (dispatch, content) => {
+  const id = nextNotificationId++
+
+  dispatch(createNotification(id, content))
+
+  setTimeout(() => {
+    dispatch(hideNotification(id))
+  }, 5000)
+}
+
+export const setVoteNotification = (dispatch, content) => {
+  const id = nextNotificationId++
+
+  dispatch(voteNotification(id, content))
+
+  setTimeout(() => {
+    dispatch(hideNotification(id))
+  }, 5000)
 }
 
 export default notificationReducer
