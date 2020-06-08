@@ -15,7 +15,11 @@ const Anecdote = ({ anecdote, handleVoting }) => {
 }
 
 const AnecdoteList = (props) => {
-  const anecdotes = useSelector((state) => state.anecdotes)
+  const anecdotes = useSelector((state) =>
+    state.anecdotes.filter(
+      (a) => a.content.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1
+    )
+  )
 
   const dispatch = useDispatch()
 
