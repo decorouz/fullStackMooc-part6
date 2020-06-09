@@ -46,17 +46,31 @@ export const initializeAnecdote = () => {
   }
 }
 
-export const anecdoteVote = (id) => {
-  return {
-    type: 'VOTE_INCREMENT',
-    data: { id },
+export const createNewAnecdote = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: newAnecdote,
+    })
   }
 }
 
-export const createNewAnecdote = (data) => {
-  return {
-    type: 'NEW_ANECDOTE',
-    data,
+// export const anecdoteVote = (id) => {
+//   return {
+//     type: 'VOTE_INCREMENT',
+//     data: { id },
+//   }
+// }
+
+export const anecdoteVote = (toUpdate) => {
+  return async (dispatch) => {
+    const updatedItem = await anecdoteService.updateVote(toUpdate)
+    dispatch({
+      type: 'VOTE_INCREMENT',
+      data: updatedItem,
+    })
   }
 }
+
 export default reducer

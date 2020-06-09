@@ -23,10 +23,11 @@ const AnecdoteList = (props) => {
 
   const dispatch = useDispatch()
 
-  const vote = (id) => {
-    const anecdote = anecdotes.find((anecdote) => anecdote.id === id)
+  const vote = (anecdote) => {
+    // const anecdote = anecdotes.find((anecdote) => anecdote.id === id)
+    // const votedAnecdote = { ...anecdote, votes: anecdote.votes + 1 }
 
-    dispatch(anecdoteVote(id))
+    dispatch(anecdoteVote(anecdote))
 
     setVoteNotification(dispatch, anecdote.content)
   }
@@ -39,7 +40,7 @@ const AnecdoteList = (props) => {
           <Anecdote
             key={anecdote.id}
             anecdote={anecdote}
-            handleVoting={() => vote(anecdote.id)}
+            handleVoting={() => vote(anecdote)}
           />
         ))}
     </div>
