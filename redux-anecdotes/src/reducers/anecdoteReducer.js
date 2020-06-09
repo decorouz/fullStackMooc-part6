@@ -24,7 +24,7 @@ const reducer = (state = [], action) => {
   }
 }
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+// const getId = () => (100000 * Math.random()).toFixed(0)
 //Create an action created for voting
 
 export const initializeAnecdote = (anecdotes) => {
@@ -41,14 +41,10 @@ export const anecdoteVote = (id) => {
   }
 }
 
-export const createNewAnecdote = (content) => {
+export const createNewAnecdote = (data) => {
   return {
     type: 'NEW_ANECDOTE',
-    data: {
-      content,
-      votes: 0,
-      id: getId(),
-    },
+    data,
   }
 }
 export default reducer

@@ -1,8 +1,8 @@
 const notificationReducer = (state = '', action) => {
   switch (action.type) {
-    case 'NEW_CREATED':
+    case 'NEW_NOTIFY':
       return action.data
-    case 'VOTED':
+    case 'VOTE_NOTIFY':
       return action.data
     case 'HIDE':
       return ''
@@ -14,7 +14,7 @@ const notificationReducer = (state = '', action) => {
 
 const createNotification = (id, content) => {
   return {
-    type: 'NEW_CREATED',
+    type: 'NEW_NOTIFY',
     id,
     data: `You created '${content}'`,
   }
@@ -22,7 +22,7 @@ const createNotification = (id, content) => {
 
 const voteNotification = (id, content) => {
   return {
-    type: 'VOTED',
+    type: 'VOTE_NOTIFY',
     id,
     data: `You voted '${content}'`,
   }
