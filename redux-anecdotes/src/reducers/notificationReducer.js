@@ -1,10 +1,9 @@
 const notificationReducer = (state = '', action) => {
   switch (action.type) {
-    case 'NEW_NOTIFY':
-      return action.data
-    case 'VOTE_NOTIFY':
-      return action.data
-    case 'HIDE':
+    case 'SET_NOTIFICATION':
+      return action.notification
+
+    case 'CLEAR_NOTIFICATION':
       return ''
 
     default:
@@ -12,49 +11,21 @@ const notificationReducer = (state = '', action) => {
   }
 }
 
-const createNotification = (id, content) => {
-  return {
-    type: 'NEW_NOTIFY',
-    id,
-    data: `You created '${content}'`,
+export const setNotification = (notification, time) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      notification,
+    })
+
+    setTimeout(() => dispatch(clearNotification()), 1000 * time)
   }
 }
 
-const voteNotification = (id, content) => {
+export const clearNotification = () => {
   return {
-    type: 'VOTE_NOTIFY',
-    id,
-    data: `You voted '${content}'`,
+    type: 'CLEAR_NOTIFICATION',
   }
-}
-
-const hideNotification = (id) => {
-  return {
-    type: 'HIDE',
-    id,
-  }
-}
-
-let nextNotificationId = 0
-
-export const setCreateNotification = (dispatch, content) => {
-  const id = nextNotificationId++
-
-  dispatch(createNotification(id, content))
-
-  setTimeout(() => {
-    dispatch(hideNotification(id))
-  }, 5000)
-}
-
-export const setVoteNotification = (dispatch, content) => {
-  const id = nextNotificationId++
-
-  dispatch(voteNotification(id, content))
-
-  setTimeout(() => {
-    dispatch(hideNotification(id))
-  }, 5000)
 }
 
 export default notificationReducer
