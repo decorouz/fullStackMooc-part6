@@ -1,3 +1,5 @@
+import anecdoteService from '../services/anecdotes'
+
 const reducer = (state = [], action) => {
   // console.log('state now: ', state)
   // console.log('action', action)
@@ -27,10 +29,20 @@ const reducer = (state = [], action) => {
 // const getId = () => (100000 * Math.random()).toFixed(0)
 //Create an action created for voting
 
-export const initializeAnecdote = (anecdotes) => {
-  return {
-    type: 'INIT_ANECDOTES',
-    data: anecdotes,
+// export const initializeAnecdote = (anecdotes) => {
+//   return {
+//     type: 'INIT_ANECDOTES',
+//     data: anecdotes,
+//   }
+// }
+
+export const initializeAnecdote = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes,
+    })
   }
 }
 
