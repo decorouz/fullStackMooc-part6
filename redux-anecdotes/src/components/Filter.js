@@ -6,7 +6,8 @@ const Filter = () => {
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
-    dispatch(filterChange(event.target.value))
+    const filterInput = event.target.value
+    dispatch(filterChange(filterInput))
   }
   const style = {
     marginBottom: 10,
