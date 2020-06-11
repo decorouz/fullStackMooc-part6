@@ -11,7 +11,7 @@ const notificationReducer = (state = '', action) => {
   }
 }
 
-let notificationID = 0
+let timeoutID = 0
 
 export const setNotification = (notification, time) => {
   return async (dispatch) => {
@@ -20,14 +20,11 @@ export const setNotification = (notification, time) => {
       notification,
     })
     //So notification doesn't repeat in redux store
-    if (notificationID) {
-      clearTimeout(notificationID)
+    if (timeoutID) {
+      clearTimeout(timeoutID)
     }
 
-    notificationID = setTimeout(
-      () => dispatch(clearNotification()),
-      1000 * time
-    )
+    timeoutID = setTimeout(() => dispatch(clearNotification()), 1000 * time)
   }
 }
 
