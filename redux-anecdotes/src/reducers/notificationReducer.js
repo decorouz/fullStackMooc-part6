@@ -11,14 +11,23 @@ const notificationReducer = (state = '', action) => {
   }
 }
 
+let notificationID = 0
+
 export const setNotification = (notification, time) => {
   return async (dispatch) => {
     dispatch({
       type: 'SET_NOTIFICATION',
       notification,
     })
+    //So notification doesn't repeat in redux store
+    if (notificationID) {
+      clearTimeout(notificationID)
+    }
 
-    setTimeout(() => dispatch(clearNotification()), 1000 * time)
+    notificationID = setTimeout(
+      () => dispatch(clearNotification()),
+      1000 * time
+    )
   }
 }
 
