@@ -24,9 +24,6 @@ const AnecdoteList = (props) => {
   const dispatch = useDispatch()
 
   const vote = (anecdote) => {
-    // const anecdote = anecdotes.find((anecdote) => anecdote.id === id)
-    // const votedAnecdote = { ...anecdote, votes: anecdote.votes + 1 }
-
     dispatch(anecdoteVote(anecdote))
     dispatch(setNotification(`you voted '${anecdote.content}'`, 5))
   }
